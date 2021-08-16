@@ -1,9 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { logger } = require("../middlewares/logger");
+const { authVerify } = require("../middlewares/authVerify");
 
-router.use("/", logger);
-router
-  .route("/")
-  .get((req, res) => res.json({ name: "Minhaj", age: 21, pincode: 505001 }));
+router.use("/", authVerify);
+router.route("/").get((req, res) =>
+  res.json({
+    name: "Minhaj",
+    age: 21,
+    pincode: 505001,
+    token: req.headers.authorization,
+  })
+);
 module.exports = { router };
