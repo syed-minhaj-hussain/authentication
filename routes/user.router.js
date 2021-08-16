@@ -8,6 +8,7 @@ router.route("/").get((req, res) =>
     name: "Minhaj",
     age: 21,
     pincode: 505001,
+    user: req.user,
     token: req.headers.authorization,
   })
 );
