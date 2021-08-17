@@ -5,6 +5,7 @@ const authVerify = async (req, res, next) => {
     const token = req.headers.authorization;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = { username: decoded.username };
+    console.log(decoded);
     return next();
   } catch (err) {
     return res.status(401).json({
