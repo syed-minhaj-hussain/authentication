@@ -1,17 +1,15 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const authVerify = async (req, res, next) => {
+  const token = req.headers.authorization;
   try {
-    const token = req.headers.authorization;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { username: decoded.username };
     console.log(decoded);
-    return next();
+    req.user = decoded;
+    next();
   } catch (err) {
-    return res.status(401).json({
-      success: false,
-      message: "unathorized access, please add token",
-    });
+    console.log({ err });
+    res.status(401).json({ success: false, message: "Uauthorized User!" });
   }
 };
 
